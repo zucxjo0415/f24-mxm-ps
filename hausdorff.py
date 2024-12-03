@@ -27,10 +27,10 @@ class Point:
         return f"Point({self.z}, {self.radius})"
     
 def disk_to_plane(z):
-    return (z-1j) / (z+1j)
+    return 1j * (z + 1) / (z - 1)
 
 def plane_to_disk(w):
-    return 1j * (w + 1) / (w - 1)
+    return (w - 1j) / (w + 1j)
 
 # Define generators
 A = np.array([[3, 0], [0, 1/3]], dtype=np.float64)
@@ -39,7 +39,6 @@ A_inv = np.linalg.inv(A)
 B_inv = np.linalg.inv(B)
 generators = [MobiusTransform(A), MobiusTransform(B), MobiusTransform(A_inv), MobiusTransform(B_inv)]
 
-# Trying out the angle method
 angles = np.linspace(0, 2 * np.pi, 5)[:-1]
 sample_points = [np.exp(1j * angle) for angle in angles]
 points = [Point(z, radius=np.pi/4) for z in sample_points]
